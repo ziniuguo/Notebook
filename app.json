@@ -1,0 +1,10 @@
+{
+  "name": "ziniusproject",
+  "displayName": "ziniusproject",
+  "expo": {
+    "name": "ziniusproject",
+    "slug": "ziniusproject",
+    "version": "1.0.0",
+    "assetBundlePatterns": ["**/*"]
+  }
+}
