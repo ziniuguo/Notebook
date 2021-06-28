@@ -1,65 +1,61 @@
 import React from "react";
-import { Text, TextInput, View, ToastAndroid, Alert, TouchableOpacity } from "react-native";
+import {Alert, Text, TextInput, ToastAndroid, TouchableOpacity, View} from "react-native";
 import Br from "../tags";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {styles} from "../styles/basic";
+import {createStackNavigator} from "react-navigation-stack";
 
-export async function setStringValue(content) {
-    try {
-        await AsyncStorage.setItem("key", content);
-        ToastAndroid.show("Content saved successfully.", ToastAndroid.SHORT)
-    } catch (e) {
-      // save error
-    }
-}
-
-export default class storageScreen extends React.Component {
+class storageScreen extends React.Component {
     static navigationOptions = {
         title: "To do list App",
     };
+
     constructor(props) {
         super(props);
         this.state = {
             content: "",
         };
     }
+
+    setStringValue = async (content) => {
+        try {
+            await AsyncStorage.setItem("key", content);
+            ToastAndroid.show("Content saved successfully.", ToastAndroid.SHORT)
+        } catch (e) {
+            // save error
+        }
+    }
+
     render() {
         return (
             <View
-                style={{
-                    flex: 1,
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "flex-start",
-                }}
+                style={styles.container}
             >
-                <Text style = {styles.title}>  What's the plan today?  </Text>
-                <Br />
+                <Text style={styles.title}> What's the plan today? </Text>
+                <Br/>
                 <TextInput
                     style={{
                         height: 35,
                         borderColor: "blue",
                         borderWidth: 1,
                         width: 300,
+                        paddingHorizontal: 6
                     }}
                     placeholder="Write something here..."
-                    onChangeText={(text) => this.setState({ content: text })}
-                    // 也可以这样写：
-                    // onChangeText = {(content) => this.setState({content})}
-                    // 从书上抄的，并不知道为什么
+                    onChangeText={(text) => this.setState({content: text})}
                     value={this.state.content}
                 />
-                <Br />
-                <View style = {{flexDirection: 'row'}}>
+                <Br/>
+                <View style={{flexDirection: 'row'}}>
                     <TouchableOpacity
-                        style = {styles.button}
-                        onPress={() => setStringValue(this.state.content)}
+                        style={styles.button}
+                        onPress={() => this.setStringValue(this.state.content)}
                     >
-                        <Text>SAVE</Text>
+                        <Text>Save</Text>
                     </TouchableOpacity>
-                    <Text>    </Text>
+                    <Text>        </Text>
                     <TouchableOpacity
-                        style = {styles.button}
+                        style={styles.button}
                         onPress={() =>
                             Alert.alert(
                                 'Clear what you write?',
@@ -67,20 +63,24 @@ export default class storageScreen extends React.Component {
                                 [
                                     {
                                         text: 'Yes',
-                                        onPress: () => this.setState({ content: "" })
+                                        onPress: () => this.setState({content: ""})
                                     },
                                     {
                                         text: 'Cancel',
                                     },
                                 ],
-                                { cancelable: false }
+                                {cancelable: false}
                             )
                         }
                     >
-                        <Text>CLEAR</Text>
+                        <Text>Clear</Text>
                     </TouchableOpacity>
                 </View>
             </View>
-    );
-  }
+        );
+    }
 }
+
+export default createStackNavigator(
+    {Home: storageScreen}
+)
