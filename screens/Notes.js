@@ -1,25 +1,45 @@
 import React from "react";
-import {Text, ScrollView, Button, Alert, ToastAndroid} from "react-native";
-import Br from "../tags";
+import {Alert, Text, ToastAndroid, TouchableOpacity, View} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {createStackNavigator} from "react-navigation-stack";
+import {styles} from "../styles/basic";
+import BouncyCheckbox from "react-native-bouncy-checkbox";
 
-export default class notesScreen extends React.Component {
+class notesScreen extends React.Component {
     static navigationOptions = {
-        title: "Notes Saved",
+        title: "Things to do...",
     };
+
     constructor(props) {
         super(props);
         this.state = {
             val: "",
+            st: false
         };
     }
+
+    saveCheckState = async (btnState) => {
+        try {
+            this.setState({st: btnState});
+            await AsyncStorage.setItem('btn', JSON.stringify(btnState))
+        } catch (e) {
+            // save error
+        }
+    }
+
     getStringValue = async () => {
         try {
-            this.setState({ val: await AsyncStorage.getItem("key") });
+            this.setState(
+                {
+                    val: await AsyncStorage.getItem("key"),
+                    st: await AsyncStorage.getItem("btn") === 'true'
+                }
+            );
         } catch (e) {
             // save error
         }
     };
+
     removeValue() {
         Alert.alert(
             'Delete notes you save',
@@ -30,10 +50,14 @@ export default class notesScreen extends React.Component {
                     onPress: async () => {
                         try {
                             await AsyncStorage.setItem("key", "");
-                            this.setState({
-                                val: ""
-                            })
-                            ToastAndroid.show("Content deleted.", ToastAndroid.SHORT)
+                            this.setState(
+                                {
+                                    val: ""
+                                }
+                            );
+                            ToastAndroid.show(
+                                "Content deleted.",
+                                ToastAndroid.SHORT)
                         } catch (e) {
                             // remove error
                         }
@@ -43,32 +67,53 @@ export default class notesScreen extends React.Component {
                     text: 'Cancel',
                 },
             ],
-            { cancelable: false }
+            {cancelable: false}
         )
     }
+
     componentDidMount() {
-        this.props.navigation.addListener(
+        this._unsubscribe = this.props.navigation.addListener(
             "willFocus",
             () => this.getStringValue()
-            // I got the solution here:
-            // https://www.reddit.com/r/reactnative/
-            // comments/9b8k4b/
-            // how_to_re_render_tab_screens_after_visiting_one/
-            // e517izd?utm_source=share&utm_medium=web2x&context=3
-            // And... here:
-            // https://aboutreact.com/refresh-previous-screen-react-navigation/
-            // Brilliant solution.
         );
     }
+
+    componentWillUnmount() {
+        this._unsubscribe.remove();
+    }
+
     render() {
         return (
-            <ScrollView>
-                <Br />
-                <Button title={"delete"} onPress={() => this.removeValue()} />
-                <Br />
-                <Text>Things to do:</Text>
-                <Br /><Text selectable = {true} >{this.state.val}</Text>
-            </ScrollView>
+            <View style={{
+                paddingTop: 20,
+                paddingBottom: 20,
+                paddingHorizontal: 30,
+                flex: 1,
+                justifyContent: 'space-between'
+            }}>
+                <BouncyCheckbox
+                    fillColor="#61dafb"
+                    iconStyle={{borderColor: "#61dafb"}}
+                    textContainerStyle={{marginLeft: 10}}
+                    text={this.state.val}
+                    isChecked={this.state.st}
+                    disableBuiltInState={true}
+                    onPress={() => this.saveCheckState(!this.state.st)}
+                />
+                <View>
+                    <Text>{'state is: ' + this.state.st}</Text>
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={() => this.removeValue()}
+                    >
+                        <Text>Delete</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
         );
     }
 }
+
+export default createStackNavigator(
+    {Home: notesScreen}
+)
