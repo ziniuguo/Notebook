@@ -1,6 +1,7 @@
 # Notebook
-A useless project.
+A useless project
 
 To be done:
-Multiple items
-Fonts
+
+- [ ] Multiple items
+- [ ] Fonts
