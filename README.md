@@ -1,2 +1,6 @@
 # Notebook
-A simple notebook
+A useless project.
+
+To be done:
+Multiple items
+Fonts
