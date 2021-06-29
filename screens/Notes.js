@@ -1,5 +1,5 @@
 import React from "react";
-import {Alert, Text, ToastAndroid, TouchableOpacity, View} from "react-native";
+import {Alert, ScrollView, Text, ToastAndroid, TouchableOpacity, View} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {createStackNavigator} from "react-navigation-stack";
 import {styles} from "../styles/basic";
@@ -13,8 +13,9 @@ class notesScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            val: "",
-            st: false
+            st: false,
+            list: [],
+            placeholder: 'Nothing is here...'
         };
     }
 
@@ -29,12 +30,17 @@ class notesScreen extends React.Component {
 
     getStringValue = async () => {
         try {
-            this.setState(
-                {
-                    val: await AsyncStorage.getItem("key"),
-                    st: await AsyncStorage.getItem("btn") === 'true'
-                }
-            );
+            const itemGet =
+                await AsyncStorage.getItem("key") !== null
+                    ? JSON.parse(await AsyncStorage.getItem("key"))
+                    : []
+            console.log(await AsyncStorage.getItem("key"))
+            this.setState({
+                list: itemGet,
+                placeholder: itemGet.length === 0 ? 'Nothing is here...' : '',
+                st: await AsyncStorage.getItem("btn") === 'true'
+            })
+            console.log(this.state.list)
         } catch (e) {
             // save error
         }
@@ -49,10 +55,13 @@ class notesScreen extends React.Component {
                     text: 'Delete',
                     onPress: async () => {
                         try {
-                            await AsyncStorage.setItem("key", "");
+                            await AsyncStorage.removeItem("key");
+                            await AsyncStorage.removeItem('btn')
                             this.setState(
                                 {
-                                    val: ""
+                                    list: [],
+                                    st: false,
+                                    placeholder: 'Nothing is here...'
                                 }
                             );
                             ToastAndroid.show(
@@ -85,26 +94,41 @@ class notesScreen extends React.Component {
     render() {
         return (
             <View style={{
-                paddingTop: 20,
+                paddingTop: 5,
                 paddingBottom: 20,
                 paddingHorizontal: 30,
                 flex: 1,
                 justifyContent: 'space-between'
             }}>
-                <BouncyCheckbox
-                    fillColor="#61dafb"
-                    iconStyle={{borderColor: "#61dafb"}}
-                    textContainerStyle={{marginLeft: 10}}
-                    text={this.state.val}
-                    isChecked={this.state.st}
-                    disableBuiltInState={true}
-                    onPress={() => this.saveCheckState(!this.state.st)}
-                />
+                <Text
+                    style={{alignSelf: 'center'}}
+                >
+                    {this.state.placeholder}
+                </Text>
+                <ScrollView>
+                    {this.state.list.map((item, index) => (
+                        <BouncyCheckbox
+                            key={index}
+                            style={{
+                                padding: 5
+                            }}
+                            fillColor="#61dafb"
+                            iconStyle={{borderColor: "#61dafb"}}
+                            textContainerStyle={{marginLeft: 10}}
+                            text={item}
+                            isChecked={this.state.st}
+                            disableBuiltInState={true}
+                            onPress={() => this.saveCheckState(!this.state.st)}
+                        />
+                    ))}
+                </ScrollView>
                 <View>
-                    <Text>{'state is: ' + this.state.st}</Text>
+                    <Text>{'state is : ' + this.state.st}</Text>
                     <TouchableOpacity
                         style={styles.button}
-                        onPress={() => this.removeValue()}
+                        onPress={() => {
+                            this.removeValue()
+                        }}
                     >
                         <Text>Delete</Text>
                     </TouchableOpacity>
