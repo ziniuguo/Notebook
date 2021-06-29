@@ -17,9 +17,14 @@ class storageScreen extends React.Component {
         };
     }
 
-    setStringValue = async (content) => {
+    setStringValue = async (myKey, myValue) => {
         try {
-            await AsyncStorage.setItem("key", content);
+            const tempValue =
+                await AsyncStorage.getItem("key") !== null
+                    ? JSON.parse(await AsyncStorage.getItem("key"))
+                    : []
+            tempValue.unshift(myValue)
+            await AsyncStorage.setItem(myKey, JSON.stringify(tempValue));
             ToastAndroid.show("Content saved successfully.", ToastAndroid.SHORT)
         } catch (e) {
             // save error
@@ -49,7 +54,18 @@ class storageScreen extends React.Component {
                 <View style={{flexDirection: 'row'}}>
                     <TouchableOpacity
                         style={styles.button}
-                        onPress={() => this.setStringValue(this.state.content)}
+                        onPress={() =>
+                            this.state.content !== ''
+                                ? this.setStringValue("key", this.state.content)
+                                : Alert.alert(
+                                    'Alert',
+                                'Saved content can not be empty!',
+                                [
+                                    {text: 'OK'}
+                                ],
+                                {cancelable: false}
+                                )
+                        }
                     >
                         <Text>Save</Text>
                     </TouchableOpacity>
