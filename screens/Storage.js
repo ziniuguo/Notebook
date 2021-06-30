@@ -7,13 +7,13 @@ import {createStackNavigator} from "react-navigation-stack";
 
 class storageScreen extends React.Component {
     static navigationOptions = {
-        title: "To do list App",
+        title: "A Simple Notebook",
     };
 
     constructor(props) {
         super(props);
         this.state = {
-            content: "",
+            content: ""
         };
     }
 
@@ -23,7 +23,7 @@ class storageScreen extends React.Component {
                 await AsyncStorage.getItem("key") !== null
                     ? JSON.parse(await AsyncStorage.getItem("key"))
                     : []
-            tempValue.unshift(myValue)
+            tempValue.unshift(myValue + '0')
             await AsyncStorage.setItem(myKey, JSON.stringify(tempValue));
             ToastAndroid.show("Content saved successfully.", ToastAndroid.SHORT)
         } catch (e) {
@@ -51,14 +51,16 @@ class storageScreen extends React.Component {
                     value={this.state.content}
                 />
                 <Br/>
-                <View style={{flexDirection: 'row'}}>
+                <View style={{
+                    flexDirection: 'row',
+                }}>
                     <TouchableOpacity
                         style={styles.button}
                         onPress={() =>
                             this.state.content !== ''
                                 ? this.setStringValue("key", this.state.content)
                                 : Alert.alert(
-                                    'Alert',
+                                'Alert',
                                 'Saved content can not be empty!',
                                 [
                                     {text: 'OK'}
@@ -69,7 +71,7 @@ class storageScreen extends React.Component {
                     >
                         <Text>Save</Text>
                     </TouchableOpacity>
-                    <Text>        </Text>
+                    <Text>    </Text>
                     <TouchableOpacity
                         style={styles.button}
                         onPress={() =>
