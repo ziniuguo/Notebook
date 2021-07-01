@@ -1,8 +1,13 @@
 # Notebook
-An unfinished useless project
+Unfinished useless project
 
 To be done:
-
-- [x] Multiple items
 - [ ] Beautiful Fonts
-- [ ] Icons, Loading Screen, useless trashes
+
+bug:
+- [x] react navigation screen shaking. Fixed 
+```javascript
+navigationOptions: { safeAreaInsets: { top: 0 } }
+```
+- [ ] Toast notification not working properly
+- [ ] Issues when keyboard is used
