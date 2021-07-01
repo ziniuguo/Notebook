@@ -6,9 +6,11 @@ To be done:
 - [ ] Icon with badge
 
 bug:
-- [x] react navigation screen shaking. Fixed 
+- [x] react navigation screen shaking. Fixed
+
+[Solution](https://www.reddit.com/r/reactnative/comments/euwno3/createbottomtabnavigator_header_flickering_issue/)
 ```javascript
 navigationOptions: { safeAreaInsets: { top: 0 } }
 ```
 - [ ] Toast notification not working properly
-- [ ] Issues when keyboard is used
+- [ ] ```<View />``` height changed when keyboard used
