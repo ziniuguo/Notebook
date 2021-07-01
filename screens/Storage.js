@@ -1,13 +1,15 @@
 import React from "react";
-import {Alert, Text, TextInput, ToastAndroid, TouchableOpacity, View} from "react-native";
+import {Alert, SafeAreaView, Text, TextInput, TouchableOpacity} from "react-native";
 import Br from "../tags";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {styles} from "../styles/basic";
 import {createStackNavigator} from "react-navigation-stack";
+import Toast from 'react-native-simple-toast';
 
 class storageScreen extends React.Component {
     static navigationOptions = {
         title: "A Simple Notebook",
+        safeAreaInsets: {top: 0}
     };
 
     constructor(props) {
@@ -18,29 +20,25 @@ class storageScreen extends React.Component {
     }
 
     setStringValue = async (myKey, myValue) => {
-        try {
-            const tempValue =
-                await AsyncStorage.getItem("key") !== null
-                    ? JSON.parse(await AsyncStorage.getItem("key"))
-                    : []
-            tempValue.unshift(myValue + '0')
-            await AsyncStorage.setItem(myKey, JSON.stringify(tempValue));
-            ToastAndroid.show("Content saved successfully.", ToastAndroid.SHORT)
-        } catch (e) {
-            // save error
-        }
+        const tempValue =
+            await AsyncStorage.getItem("key") !== null
+                ? JSON.parse(await AsyncStorage.getItem("key"))
+                : []
+        tempValue.unshift(myValue + '0')
+        await AsyncStorage.setItem(myKey, JSON.stringify(tempValue));
+        Toast.show('Saved',)
     }
 
     render() {
         return (
-            <View
+            <SafeAreaView
                 style={styles.container}
             >
                 <Text style={styles.title}> What's the plan today? </Text>
                 <Br/>
                 <TextInput
                     style={{
-                        height: 35,
+                        height: 45,
                         borderColor: "blue",
                         borderWidth: 1,
                         width: 300,
@@ -51,7 +49,7 @@ class storageScreen extends React.Component {
                     value={this.state.content}
                 />
                 <Br/>
-                <View style={{
+                <SafeAreaView style={{
                     flexDirection: 'row',
                 }}>
                     <TouchableOpacity
@@ -60,7 +58,7 @@ class storageScreen extends React.Component {
                             this.state.content !== ''
                                 ? this.setStringValue("key", this.state.content)
                                 : Alert.alert(
-                                'Alert',
+                                '',
                                 'Saved content can not be empty!',
                                 [
                                     {text: 'OK'}
@@ -71,13 +69,13 @@ class storageScreen extends React.Component {
                     >
                         <Text>Save</Text>
                     </TouchableOpacity>
-                    <Text>    </Text>
+                    <Text>        </Text>
                     <TouchableOpacity
                         style={styles.button}
                         onPress={() =>
                             Alert.alert(
+                                '',
                                 'Clear what you write?',
-                                'You can not recover any content after this action.',
                                 [
                                     {
                                         text: 'Yes',
@@ -93,8 +91,8 @@ class storageScreen extends React.Component {
                     >
                         <Text>Clear</Text>
                     </TouchableOpacity>
-                </View>
-            </View>
+                </SafeAreaView>
+            </SafeAreaView>
         );
     }
 }
