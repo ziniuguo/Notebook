@@ -3,6 +3,7 @@ Unfinished useless project
 
 To be done:
 - [ ] Beautiful Fonts
+- [ ] Icon with badge
 
 bug:
 - [x] react navigation screen shaking. Fixed 
