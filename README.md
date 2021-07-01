@@ -13,4 +13,4 @@ bug:
 navigationOptions: { safeAreaInsets: { top: 0 } }
 ```
 - [ ] Toast notification not working properly
-- [ ] ```<View />``` height changed when keyboard used
+- [ ] Splash screen image is shown when keyboard opens
