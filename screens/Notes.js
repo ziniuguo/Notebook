@@ -1,13 +1,15 @@
 import React from "react";
-import {Alert, ScrollView, Text, ToastAndroid, TouchableOpacity, View} from "react-native";
+import {Alert, SafeAreaView, ScrollView, Text, TouchableOpacity} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {createStackNavigator} from "react-navigation-stack";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import {styles} from "../styles/basic";
+import Toast from "react-native-simple-toast";
 
 class notesScreen extends React.Component {
     static navigationOptions = {
         title: "Things to do...",
+        safeAreaInsets: {top: 0}
     };
 
     constructor(props) {
@@ -24,8 +26,6 @@ class notesScreen extends React.Component {
                 await AsyncStorage.getItem("key") !== null
                     ? JSON.parse(await AsyncStorage.getItem("key"))
                     : []
-            console.log(await AsyncStorage.getItem("key"))
-            console.log(itemGet)
             this.setState({
                 list: itemGet,
                 placeholder: itemGet.length === 0 ? 'Nothing is here...' : '',
@@ -37,28 +37,22 @@ class notesScreen extends React.Component {
 
     removeValue(i) {
         Alert.alert(
-            'Delete this note',
-            'Delete this note? You can not recover this note after this action.',
+            '',
+            'Do you want to delete this note?',
             [
                 {
                     text: 'Delete',
                     onPress: async () => {
-                        try {
-                            const tempVal = this.state.list;
-                            tempVal.splice(i);
-                            await AsyncStorage.setItem('key', JSON.stringify(tempVal))
-                            this.setState(
-                                {
-                                    list: tempVal,
-                                    placeholder: tempVal.length === 0 ? 'Nothing is here...' : '',
-                                }
-                            );
-                            ToastAndroid.show(
-                                "Content deleted.",
-                                ToastAndroid.SHORT)
-                        } catch (e) {
-                            // remove error
-                        }
+                        const tempVal = this.state.list;
+                        tempVal.splice(i, 1);
+                        await AsyncStorage.setItem('key', JSON.stringify(tempVal))
+                        this.setState(
+                            {
+                                list: tempVal,
+                                placeholder: tempVal.length === 0 ? 'Nothing is here...' : '',
+                            }
+                        );
+                        Toast.show("Deleted")
                     }
                 },
                 {
@@ -71,10 +65,10 @@ class notesScreen extends React.Component {
 
     removeAll() {
         this.state.list.length === 0
-            ? ToastAndroid.show("Nothing here can be deleted...", ToastAndroid.SHORT)
+            ? Toast.show("Here is already empty...")
             : Alert.alert(
             'Delete All',
-            'Delete all the notes you saved?',
+            'All notes you saved will be deleted. Please long press to delete one item.',
             [
                 {
                     text: 'Delete',
@@ -84,9 +78,7 @@ class notesScreen extends React.Component {
                             list: [],
                             placeholder: 'Nothing is here...'
                         });
-                        ToastAndroid.show(
-                            "All notes deleted.",
-                            ToastAndroid.SHORT)
+                        Toast.show("All notes deleted")
                     }
                 },
                 {
@@ -117,7 +109,7 @@ class notesScreen extends React.Component {
 
     render() {
         return (
-            <View style={{
+            <SafeAreaView style={{
                 paddingTop: 5,
                 paddingBottom: 20,
                 flex: 1,
@@ -151,7 +143,7 @@ class notesScreen extends React.Component {
                 >
                     <Text>Delete All</Text>
                 </TouchableOpacity>
-            </View>
+            </SafeAreaView>
         );
     }
 }
