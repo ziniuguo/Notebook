@@ -3,13 +3,6 @@ import {StyleSheet} from "react-native";
 
 export const styles = StyleSheet.create(
     {
-        container: {
-            flex: 1,
-            paddingTop: 70,
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "flex-start",
-        },
         title: {
             paddingVertical: 8,
             borderWidth: 2,
@@ -19,7 +12,8 @@ export const styles = StyleSheet.create(
             color: "#20232a",
             textAlign: "center",
             fontSize: 25,
-            fontWeight: "normal"
+            fontWeight: "normal",
+            fontFamily: "JosefinSans-Regular"
         },
         button: {
             alignItems: "center",
