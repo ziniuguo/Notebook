@@ -114,21 +114,26 @@ class notesScreen extends React.Component {
                 paddingBottom: 20,
                 flex: 1,
                 justifyContent: 'space-between',
-                paddingHorizontal: 30
+                paddingHorizontal: 30,
+                backgroundColor: "#eaeaea",
             }}>
                 <Text
-                    style={{alignSelf: 'center'}}
+                    style={{alignSelf: 'center', fontFamily: "JosefinSans-Regular"}}
                 >
                     {this.state.placeholder}
                 </Text>
                 <ScrollView>
                     {this.state.list.map((item, index) => (
                         <BouncyCheckbox
-                            style={{paddingRight: 30, paddingVertical: 5}}
+                            style={{
+                                paddingRight: 30,
+                                paddingVertical: 5,
+                            }}
                             key={index}
                             fillColor="#61dafb"
                             iconStyle={{borderColor: "#61dafb"}}
                             textContainerStyle={{marginLeft: 10}}
+                            textStyle={{fontFamily: "JosefinSans-Regular"}}
                             text={item.slice(0, -1)}
                             isChecked={item.slice(-1) !== '0'}
                             disableBuiltInState={true}
@@ -141,7 +146,7 @@ class notesScreen extends React.Component {
                     style={styles.button}
                     onPress={() => this.removeAll()}
                 >
-                    <Text>Delete All</Text>
+                    <Text style={{fontFamily: "JosefinSans-Regular"}}>Delete All</Text>
                 </TouchableOpacity>
             </SafeAreaView>
         );
