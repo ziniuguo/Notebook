@@ -19,5 +19,12 @@ navigationOptions: { safeAreaInsets: { top: 0 } }
 </activity>
 ```
 - [x] Splash screen image is shown when keyboard opens.
-- [ ] Tab bar moved when keyboard opens
+
+No solution till now. Change bgcolor is the only way.
+- [x] Tab bar moved when keyboard opens
+```
+<activity
+    android:windowSoftInputMode="adjustResize|stateAlwaysHidden|adjustPan"
+</activity>
+```
 - [ ] Toast notification not working properly
