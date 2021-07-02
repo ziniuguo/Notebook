@@ -14,3 +14,4 @@ navigationOptions: { safeAreaInsets: { top: 0 } }
 ```
 - [ ] Toast notification not working properly
 - [ ] Splash screen image is shown when keyboard opens
+- [ ] Not working properly in landscape
