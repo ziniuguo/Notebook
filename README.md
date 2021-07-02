@@ -13,14 +13,9 @@ bug:
 navigationOptions: { safeAreaInsets: { top: 0 } }
 ```
 - [x] Not working properly in landscape
-
-[Solution](https://stackoverflow.com/questions/34078354/how-to-disable-landscape-mode-in-react-native-android-dev-mode)
 ```
 <activity
-    android:name=".Activity"
-    android:label="Activity"
     android:screenOrientation="portrait"
-    android:configChanges="keyboardHidden|orientation|screenSize">
 </activity>
 ```
 - [x] Splash screen image is shown when keyboard opens.
