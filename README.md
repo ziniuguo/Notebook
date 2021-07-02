@@ -2,8 +2,9 @@
 Unfinished useless project
 
 To be done:
-- [ ] Beautiful Fonts
+- [x] Fonts
 - [ ] Icon with badge
+- [ ] Multiple delete
 
 bug:
 - [x] react navigation screen shaking.
