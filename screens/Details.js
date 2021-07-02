@@ -1,5 +1,5 @@
 import React from "react";
-import {SafeAreaView, Text} from "react-native";
+import {Linking, SafeAreaView, Text} from "react-native";
 import {createStackNavigator} from "react-navigation-stack";
 import Br from "../tags";
 
@@ -11,10 +11,26 @@ class detailsScreen extends React.Component {
 
     render() {
         return (
-            <SafeAreaView style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
-                <Text style={{fontSize: 35}}>A Notebook</Text>
+            <SafeAreaView style={{
+                flex: 1,
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: "#eaeaea",
+            }}>
+                <Text style={{
+                    fontSize: 35,
+                    fontFamily: "JosefinSans-Regular"
+                }}>
+                    A Notebook
+                </Text>
                 <Br/>
-                <Text>Written in React Native</Text>
+                <Text style={{fontFamily: "JosefinSans-Regular"}}>Written in React Native</Text>
+                <Text style={{color: 'blue', fontFamily: "JosefinSans-Regular"}}
+                      onPress={() => Linking.openURL('https://github.com/ziniuguo/Notebook'
+                      )}
+                >
+                    GitHub Repository
+                </Text>
             </SafeAreaView>
         );
     }
