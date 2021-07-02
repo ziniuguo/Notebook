@@ -1,4 +1,7 @@
-# my cat is using my laptop doing sh*t
+# My cat is using my laptop and the whole repo is written by him.
+
+Only supported on Android
+
 Unfinished useless project
 
 To be done:
