@@ -32,7 +32,14 @@ class storageScreen extends React.Component {
     render() {
         return (
             <SafeAreaView
-                style={styles.container}
+                style={{
+                    flex: 1,
+                    paddingTop: 70,
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "flex-start",
+                    backgroundColor: "#eaeaea",
+                }}
             >
                 <Text style={styles.title}> What's the plan today? </Text>
                 <Br/>
@@ -42,9 +49,12 @@ class storageScreen extends React.Component {
                         borderColor: "blue",
                         borderWidth: 1,
                         width: 300,
-                        paddingHorizontal: 6
+                        paddingHorizontal: 6,
+                        fontWeight: 'normal',
+                        fontFamily: "JosefinSans-Regular"
                     }}
                     placeholder="Write something here..."
+                    placeholderStyle={{fontFamily: "JosefinSans-Regular", fontWeight: 'normal'}}
                     onChangeText={(text) => this.setState({content: text})}
                     value={this.state.content}
                 />
@@ -67,7 +77,7 @@ class storageScreen extends React.Component {
                                 )
                         }
                     >
-                        <Text>Save</Text>
+                        <Text style={{fontFamily: "JosefinSans-Regular"}}>Save</Text>
                     </TouchableOpacity>
                     <Text>        </Text>
                     <TouchableOpacity
@@ -89,7 +99,7 @@ class storageScreen extends React.Component {
                             )
                         }
                     >
-                        <Text>Clear</Text>
+                        <Text style={{fontFamily: "JosefinSans-Regular"}}>Clear</Text>
                     </TouchableOpacity>
                 </SafeAreaView>
             </SafeAreaView>
