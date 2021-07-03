@@ -1,4 +1,6 @@
-# My cat is using my laptop and the whole repo is written by him, only because he likes the GitHub logo...
+# My cat is using my laptop and the whole repo is written by him
+
+Yesterday my cat saw the github logo n then he thought github is for cats 
 
 Only supported on Android
 
