@@ -8,7 +8,7 @@ import Toast from "react-native-simple-toast";
 
 class notesScreen extends React.Component {
     static navigationOptions = {
-        title: "Things to do...",
+        title: "Notes",
         safeAreaInsets: {top: 0}
     };
 
@@ -16,7 +16,8 @@ class notesScreen extends React.Component {
         super(props);
         this.state = {
             list: [],
-            placeholder: 'Nothing is here...'
+            placeholder: 'Nothing is here...',
+            showBtn: false
         };
     }
 
@@ -29,6 +30,7 @@ class notesScreen extends React.Component {
             this.setState({
                 list: itemGet,
                 placeholder: itemGet.length === 0 ? 'Nothing is here...' : '',
+                showBtn: itemGet.length !== 0
             })
         } catch (e) {
             // save error
@@ -50,6 +52,7 @@ class notesScreen extends React.Component {
                             {
                                 list: tempVal,
                                 placeholder: tempVal.length === 0 ? 'Nothing is here...' : '',
+                                showBtn: tempVal.length !== 0
                             }
                         );
                         Toast.show("Deleted")
@@ -63,31 +66,40 @@ class notesScreen extends React.Component {
         )
     }
 
-    removeAll() {
-        this.state.list.length === 0
-            ? Toast.show("Here is already empty...")
+    newRemove() {
+        const tmp = this.state.list;
+        const newList = [];
+        tmp.forEach(function (item) {
+            if (item.slice(-1) === '0') {
+                newList.push(item)
+            }
+        });
+        tmp.length === newList.length
+            ? Toast.show("Nothing is selected.")
             : Alert.alert(
-            'Delete All',
-            'All notes you saved will be deleted. Please long press to delete one item.',
+            '',
+            'Delete selected notes?',
             [
                 {
                     text: 'Delete',
                     onPress: async () => {
-                        await AsyncStorage.removeItem('key');
+                        await AsyncStorage.setItem('key', JSON.stringify(newList))
                         this.setState({
-                            list: [],
-                            placeholder: 'Nothing is here...'
-                        });
-                        Toast.show("All notes deleted")
+                            list: newList,
+                            placeholder: newList.length === 0 ? 'Nothing is here...' : '',
+                            showBtn: newList.length !== 0
+                        })
+                        Toast.show("Deleted")
                     }
                 },
                 {
-                    text: 'Cancel'
-                }
+                    text: 'Cancel',
+                },
             ],
             {cancelable: false}
             )
     }
+
 
     saveCheckedState = async (el, ind) => {
         const ori = this.state.list;
@@ -142,12 +154,14 @@ class notesScreen extends React.Component {
                         />
                     ))}
                 </ScrollView>
+                {this.state.showBtn &&
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={() => this.removeAll()}
+                    onPress={() => this.newRemove()}
                 >
-                    <Text style={{fontFamily: "JosefinSans-Regular"}}>Delete All</Text>
+                    <Text style={{fontFamily: "JosefinSans-Regular"}}>Delete</Text>
                 </TouchableOpacity>
+                }
             </SafeAreaView>
         );
     }
