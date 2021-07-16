@@ -1,4 +1,4 @@
-# My cat is using my laptop and the whole repo is written by him
+# My cat is using my laptop and writing this repo
 
 Yesterday my cat saw the github logo n then he thought github is for cats 
 
@@ -9,7 +9,7 @@ Unfinished useless project
 To be done:
 - [x] Fonts
 - [ ] Icon with badge
-- [ ] Multiple delete
+- [x] Multiple delete
 
 bug:
 - [x] react navigation screen shaking.
@@ -34,3 +34,7 @@ No solution till now. Change bgcolor is the only way.
 </activity>
 ```
 - [ ] Toast notification not working properly
+
+
+
+Ziniu Guo
