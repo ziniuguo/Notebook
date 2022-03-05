@@ -2,17 +2,13 @@
 
 Yesterday my cat saw the github logo n then he thought github is for cats 
 
-Only supported on Android
-
-Unfinished useless project
-
-To be done:
+Tbd:
 - [x] Fonts
 - [ ] Icon with badge
 - [x] Multiple delete
 
-bug:
-- [x] react navigation screen shaking.
+
+- [x] navigation screen shaking
 
 [Solution](https://www.reddit.com/r/reactnative/comments/euwno3/createbottomtabnavigator_header_flickering_issue/)
 ```javascript
@@ -35,6 +31,3 @@ No solution till now. Change bgcolor is the only way.
 ```
 - [ ] Toast notification not working properly
 
-
-
-Ziniu Guo
