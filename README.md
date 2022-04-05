@@ -1,7 +1,7 @@
 # Demo App
 
 
-<img src="https://raw.githubusercontent.com/ziniuguo/Notebook/main/Screenshot_20220405_161521_com.ziniusproject.jpg" width=50% height=50%>
+<img src="https://raw.githubusercontent.com/ziniuguo/Notebook/main/Screenshot_20220405_161521_com.ziniusproject.jpg" width=30% height=30%>
 Tbd:
 - [x] Fonts
 - [ ] Icon with badge
