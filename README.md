@@ -1,6 +1,5 @@
-# My cat is using my laptop and writing this repo
+# Demo App
 
-Yesterday my cat saw the github logo n then he thought github is for cats 
 
 Tbd:
 - [x] Fonts
