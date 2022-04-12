@@ -1,7 +1,7 @@
-# Demo App
+# Demo Notebook App
 
 
-<img src="https://raw.githubusercontent.com/ziniuguo/Notebook/main/Screenshot_20220405_161521_com.ziniusproject.jpg" width=30% height=30%>
+<img src="https://raw.githubusercontent.com/ziniuguo/Notebook/main/Screenshot_20220405_161521_com.ziniusproject.jpg" width=40% height=40%>
 
 
 Tbd:
